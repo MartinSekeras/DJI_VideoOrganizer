@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DJI Action Video Organizer</title>
+  <style>
+    body { background: #0d1117; color: #c9d1d9; font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: auto; }
+    h1 { text-align: center; color: #58a6ff; margin-bottom: 30px; }
+    .field { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+    label { width: 180px; font-weight: bold; }
+    input[type="text"] { flex: 1; padding: 12px; background: #161b22; border: 1px solid #30363d; border-radius: 8px; color: #c9d1d9; }
+    button { padding: 12px 20px; background: #238636; border: none; border-radius: 8px; color: white; cursor: pointer; font-weight: bold; }
+    button:hover { background: #2ea043; }
+    button:disabled { background: #30363d; cursor: not-allowed; }
+    #startBtn { width: 100%; padding: 16px; font-size: 18px; background: #1f6feb; margin: 30px 0; }
+    #startBtn:hover { background: #388bfd; }
+    #progressContainer { margin: 20px 0; }
+    progress { width: 100%; height: 24px; border-radius: 12px; background: #161b22; }
+    progress::-webkit-progress-value { background: #58a6ff; border-radius: 12px; }
+    #status { text-align: center; font-size: 16px; margin: 15px 0; color: #8b949e; }
+    #log { background: #010409; padding: 15px; border-radius: 8px; height: 300px; overflow-y: auto; font-family: monospace; font-size: 13px; border: 1px solid #30363d; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>DJI Action Video Organizer</h1>
+
+    <div class="field">
+      <label>Source folder:</label>
+      <input type="text" id="sourcePath" readonly>
+      <button id="sourceBtn">Browse</button>
+    </div>
+
+    <div class="field">
+      <label>Destination folder:</label>
+      <input type="text" id="destPath" readonly>
+      <button id="destBtn">Browse</button>
+    </div>
+
+    <button id="startBtn">Start Organizing</button>
+
+    <div id="progressContainer">
+      <progress id="progressBar" value="0" max="100"></progress>
+      <div id="status">Ready</div>
+    </div>
+
+    <pre id="log"></pre>
+  </div>
+
+  <script>
+    const sourcePath = document.getElementById('sourcePath');
+    const destPath = document.getElementById('destPath');
+    const sourceBtn = document.getElementById('sourceBtn');
+    const destBtn = document.getElementById('destBtn');
+    const startBtn = document.getElementById('startBtn');
+    const progressBar = document.getElementById('progressBar');
+    const status = document.getElementById('status');
+    const logEl = document.getElementById('log');
+
+    sourceBtn.onclick = async () => {
+      const p = await window.electronAPI.selectSource();
+      if (p) sourcePath.value = p;
+    };
+
+    destBtn.onclick = async () => {
+      const p = await window.electronAPI.selectDest();
+      if (p) destPath.value = p;
+    };
+
+    startBtn.onclick = () => {
+      const source = sourcePath.value.trim();
+      const dest = destPath.value.trim();
+      if (!source || !dest) {
+        status.textContent = 'Select both folders first';
+        return;
+      }
+      window.electronAPI.startOrganize(source, dest);
+    };
+
+    window.electronAPI.onClearLog(() => logEl.textContent = '');
+    window.electronAPI.onAppendLog(msg => {
+      logEl.textContent += msg + '\n';
+      logEl.scrollTop = logEl.scrollHeight;
+    });
+    window.electronAPI.onUpdateStatus(text => status.textContent = text);
+    window.electronAPI.onUpdateProgress(percent => progressBar.value = percent);
+    window.electronAPI.onSetStartEnabled(enabled => startBtn.disabled = !enabled);
+  </script>
+</body>
+</html>
