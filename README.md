@@ -66,3 +66,7 @@ First build takes a few minutes (downloads packaging tools). Run the command as 
 Open issues or PRs if you find bugs or want features (recursive scan, move instead of copy, light mode toggle, etc.).
 
 Enjoy your organized footage!
+
+## Disclaimer
+
+Some portions of this software were writen using AI, specifically the input / output and copying system behind it as I have never done something like this. Sorry if thats a deal breaker.
