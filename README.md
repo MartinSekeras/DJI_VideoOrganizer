@@ -37,7 +37,7 @@ Electron gives full HTML/CSS/JS control over the UI, so we could make it look sh
 
 ### Easiest: Download the pre-built exe
 
-1. Go to the [Releases page](https://github.com/YOUR_USERNAME/DJI_VideoOrganizer/releases)
+1. Go to the [Releases page](https://github.com/MartinSekeras/DJI_VideoOrganizer/releases)
 2. Grab the latest `DJI-Video-Organizer.exe`
 3. Double-click to run, no setup required
 
