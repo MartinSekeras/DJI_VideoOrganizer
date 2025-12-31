@@ -4,12 +4,12 @@ A simple, modern desktop app that organizes video files from DJI Action cameras 
 
 It reads filenames like `DJI_20251121134200_0001_D_A01.mp4`, pulls the date from the filename (`20251121` becomes 2025-11-21), figures out the month name and weekday, and copies the videos into a clean folder structure:
 
-Destination/
+Destination Folder/
 └── 2025/
-    └── November/
-        └── 21 - Thursday/
-            ├── DJI_20251121134200_0001_D_A01.mp4
-            └── DJI_20251121140950_0002_D_A01.mp4
+└── November/
+└── 21 - Thursday/
+├── DJI_20251121134200_0001_D_A01.mp4
+└── DJI_20251121140950_0002_D_A01.mp4
 
 Videos land directly in the date folder, no extra subfolders.
 
