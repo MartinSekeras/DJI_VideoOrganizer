@@ -1,15 +1,30 @@
 {
   "name": "dji-video-organizer",
   "version": "1.0.0",
-  "description": "",
+  "description": "Organizes DJI Action camera videos by date",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^32.1.2"
+    "electron": "^32.1.2",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.example.djivideoorganizer",
+    "productName": "DJI Video Organizer",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "portable"
+    },
+    "portable": {
+      "artifactName": "DJI-Video-Organizer.exe"
+    }
   }
 }
